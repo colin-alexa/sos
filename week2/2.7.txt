@@ -1,0 +1,16 @@
+2.7
+1.a.) O(n)
+  b.) n=50, T=0; n=100, T=0; n=1000, T=0
+2.a.) O(n^2)
+  b.) n=50, T=0; n=100, T=0; n=1000, T=0
+3.a.) O(n^3)
+  b.) n=50, T=0; n=100, T=0; n=1000, T=0.001
+4.a.) O(n^2)
+  b.) n=50, T=0; n=100, T=0.001; n=1000, T=0.001
+5.a.) O(n^5)
+  b.) n=50, T=5.57; n=100, T=5.57; n=1000, T=5.5
+6.a.) O(n^4)
+  b.) n=50, T=0.15; n=100, T=0.155; n=1000, T=0.156
+
+c.) The running times for each algorithm appear to roughly correspond to the complexity estimates I gave. Some of the complexity estimates are substantial overestimates, which could explain why there is so little variation for different n values.
+

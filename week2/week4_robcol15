@@ -1,0 +1,177 @@
+Colin Robinson - robcol15
+Rober Miller - milrob
+2.1
+2/x /*? This is a ludicrous algorithm runtime*/
+37
+log^2(x)
+log(x)
+x^(1/2)
+x
+x log(log(x))
+x log(x)
+x log(x^2)
+x log^2(x)
+x^1.5
+x^2
+x^2 log(x)
+x^3
+2^(x/2)
+2^x
+
+2.2
+all four are true
+
+2.3
+N log N grows faster, but as e -> infinity, N log N is only greater for extremely large N.
+
+2.7
+1.a.) O(n)
+  b.) n=50, T=0; n=100, T=0; n=1000, T=0
+2.a.) O(n^2)
+  b.) n=50, T=0; n=100, T=0; n=1000, T=0
+3.a.) O(n^3)
+  b.) n=50, T=0; n=100, T=0; n=1000, T=0.001
+4.a.) O(n^2)
+  b.) n=50, T=0; n=100, T=0.001; n=1000, T=0.001
+5.a.) O(n^5)
+  b.) n=50, T=5.57; n=100, T=5.57; n=1000, T=5.5
+6.a.) O(n^4)
+  b.) n=50, T=0.15; n=100, T=0.155; n=1000, T=0.156
+
+c.) The running times for each algorithm appear to roughly correspond to the complexity estimates I gave. Some of the complexity estimates are substantial overestimates, which could explain why there is so little variation for different n values.
+
+2.14
+a. 4(3^4) + 8(3^3) + 0(3^2) + 1(3^1) + 2(3^0) = 545
+1st time through loop, i = 4 : poly = 3*0 + a[4] = 0 + 4 = 4
+2nd time, i = 3: poly = 3*4 + a[3] = 12 + 8 = 20
+3rd time, i = 2: poly = 3*20 + a[2] = 60 + 0 = 60
+4th time, i = 1: poly = 3*60 + a[1] = 180 + 1 = 181
+5th time, i = 0: poly = 3*181 + a[0] = 543 + 2 = 545
+
+b. The coefficients of the polynomial are stored in an array with the exponent of that coefficient as their index, which allows the loop to iterate through the polynomial starting with a[degree] and sum the total into poly. This works because you can recursively expand the polynomial into the form a0 + x(a1 + x(a2 . + x(an))), and then iteratively .ascend. and calculate the value by substituting the previous term.
+
+c. O(n)
+
+2.15
+
+You could do a binary search for the point where the values pass the indexes and check if the value at that point equals the index at that point. (since both are in ascending order, it is the case that the values are all greater than the indexes, none are greater, or they intersect inside the list). As a binary search this would be O(log n).
+
+indexValueId(a, index = 0, offset = 0):
+  if len(a) < 1: # if you found the corssover point and it's between indexes
+   return False
+  elif a[index] == index + offset:
+   return True
+  elif a[index] > index + offset:
+   if index == 0:
+    return False
+   else:
+    leftSide = a[:index]
+    offset -= max( len(leftSide)//2 - 1, 0) # this is a bit messy, but it always lowers the offset if you look left, instead of occasionally subtracting a negative number
+    return indexValueId(leftSide, index = len(leftSide)//2, offset = offset)
+  else:
+   rightSide = a[index+1:]
+   offset += len(rightSide)//2 - 1
+   return indexValueId(rightSide, index = len(rightSide)//2, offset = offset)
+
+2.26
+a. The algorithm terminates when there are no more duplicate elements in the last created array (A . B, B . C. and so on).
+
+b. The case for N is odd isn.t handled at all. The algorithm will not necessarily find the majority element in an odd sized array.
+
+c. O(n^n)
+
+d. Hashtable - this would allow for O(n) run time. You iterate through each element, increment the corresponding location in your hash table, and as you iterate you compare if the increment you just did created a number larger than your current maximum. If so, this is the new maximum. Then you.ll have a number that is the largest # of times anything appears in the list, and you compare that to the size of the list. If it is >n/2, it.s the majority. If not, there is no majority.
+
+e. 
+max = 0
+max_index = -1
+majority = None
+counts = dict()
+for i in range(n):
+  counts[a[i]] += 1
+  if counts[a[i]] > max:
+    max = counts[a[i]]
+    max_index = a[i]
+if max > n/2:
+  majority = max_index
+
+2.28
+//These all run in O(N). We're very proud.
+
+//Addition and multiplication function identically for these purposes, 
+//and can be handled in one function
+
+//It's just the max by definition, there's nothing bigger than the largest int plus or multiplied by itself
+#include <iostream>
+
+int multiplicationMax(int arr[], int size){
+        int max = arr[0];
+        for (int i = 0; i < size; i++){
+                if (arr[i] > max){
+                        max = arr[i];
+                }
+        }
+        return max*max;
+}
+
+int additionMax(int arr[], int size){
+        int max = arr[0];
+        for (int i = 0; i < size; i++){
+                if (arr[i] > max){
+                        max = arr[i];
+                }
+        }
+        return max+max;
+}
+
+
+
+//Addition and multiplication function identically for these purposes,
+//and can be handled in one function
+
+//We keep running maxes and mins to find the largest value minus the smallest value before it
+int decreasingMax(int arr[], int size){
+        int min, best, temp;
+        best = 0; //Because the worst value we can never be less than a number minus itself
+        min = arr[0];
+        for (int i = 0; i < size; i++){
+                if (arr[i] < min){ 
+                        min = arr[i];
+                } 
+                temp = arr[i] - min;
+                if (temp > best){
+                        best = temp;
+                }
+        }
+        return best;
+}
+
+int dividingMax(int arr[], int size){
+        int min, best, temp;
+        best = 0; //Because the worst value we can never be less than a number minus itself
+        min = arr[0];
+        for (int i = 0; i < size; i++){
+                if (arr[i] < min){ 
+                        min = arr[i];
+                } 
+                temp = arr[i] / min;
+                if (temp > best){
+                        best = temp;
+                }
+        }
+        return best;
+}
+
+using namespace std;
+
+int main(){
+//We're confident in the addition and multiplication solutions,
+// so this is just to test the subtraction, and by extension division,
+// solutions
+    int a[] = {100,70,60,2};
+    cout << a << " subtracting max, " << decreasingMax(a, 4) << endl;
+    return 0;
+}
+
+2.31
+It would still work (compile + run) but it would be slower because you would include the midpoint sometimes when you didn't need to, resulting in more passes through the algorithm than necessary. 

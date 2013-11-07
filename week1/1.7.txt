@@ -1,0 +1,33 @@
+a. log x < x | x > 0
+ if x > 1
+ proof by induction:
+ log(1) = 0 , 0 < 1 ; BC
+ log(x) < x ; IH
+ log(2x) = log(x) + log(2)
+         = log(x) + 1
+ log(x) + 1 < x + 1 ; IH: log(x) < x
+ x+1 <= 2x ; for x >= 1
+ log(x+1) <= log(2x) < x+1
+ log(x+1) < x+1 ; Inductive step
+
+ if 0<x<1
+ 2^x > 0 ; by convention, 2^1/x is understood to refer only to the positive root
+
+ if x>y>0 then 2^x > 2^y 
+ x = y + v ; for some v > 0
+ 2^x = 2^y * 2^v
+ 2^y * 2^v > 2^y
+ 2^x > 2^y
+ 
+ log(1) = 0
+ if x < y then log(x) < log(y) 
+ if x < 1 then log(x) < log(1) == 0
+ x > 0
+ log(x) < x
+
+b. log(a^b) == b * log(a)
+ log(a^b) = k : 2^k = a^b
+ (2^k)^(1/b) = a
+ 2^(k/b) = a
+ log(a) = k/b
+ b * log(a) = k = log(a^b)

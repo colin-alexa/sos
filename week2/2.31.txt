@@ -1,0 +1,2 @@
+2.31
+It would still work (compile + run) but it would be slower because you would include the midpoint sometimes when you didn.t need to, resulting in more passes through the algorithm than necessary. 

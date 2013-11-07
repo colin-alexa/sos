@@ -1,0 +1,3 @@
+2.3
+N log N grows faster, but as e -> infinity, N log N is only greater for extremely large N.
+

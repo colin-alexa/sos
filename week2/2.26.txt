@@ -1,0 +1,21 @@
+2.26
+a. The algorithm terminates when there are no more duplicate elements in the last created array (A . B, B . C. and so on).
+
+b. The case for N is odd isn.t handled at all. The algorithm will not necessarily find the majority element in an odd sized array.
+
+c. O(n^n)
+
+d. Hashtable - this would allow for O(n) run time. You iterate through each element, increment the corresponding location in your hash table, and as you iterate you compare if the increment you just did created a number larger than your current maximum. If so, this is the new maximum. Then you.ll have a number that is the largest # of times anything appears in the list, and you compare that to the size of the list. If it is >n/2, it.s the majority. If not, there is no majority.
+
+e. 
+max = 0
+max_index = -1
+majority = None
+counts = dict()
+for i in range(n):
+  counts[a[i]] += 1
+  if counts[a[i]] > max:
+    max = counts[a[i]]
+    max_index = a[i]
+if max > n/2:
+  majority = max_index

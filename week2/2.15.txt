@@ -1,0 +1,20 @@
+2.15
+
+You could do a binary search for the point where the values pass the indexes and check if the value at that point equals the index at that point. (since both are in ascending order, it is the case that the values are all greater than the indexes, none are greater, or they intersect inside the list). As a binary search this would be O(log n).
+
+indexValueId(a, index = 0, offset = 0):
+  if len(a) < 1: # if you found the corssover point and it's between indexes
+   return False
+  elif a[index] == index + offset:
+   return True
+  elif a[index] > index + offset:
+   if index == 0:
+    return False
+   else:
+    leftSide = a[:index]
+    offset -= max( len(leftSide)//2 - 1, 0) # this is a bit messy, but it always lowers the offset if you look left, instead of occasionally subtracting a negative number
+    return indexValueId(leftSide, index = len(leftSide)//2, offset = offset)
+  else:
+   rightSide = a[index+1:]
+   offset += len(rightSide)//2 - 1
+   return indexValueId(rightSide, index = len(rightSide)//2, offset = offset)

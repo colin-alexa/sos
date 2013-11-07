@@ -1,0 +1,18 @@
+2.1
+2/x //WTF?
+37
+log^2(x)
+log(x)
+x^(1/2)
+x
+x log(log(x))
+x log(x)
+x log(x^2)
+x log^2(x)
+x^1.5
+x^2
+x^2 log(x)
+x^3
+2^(x/2)
+2^x
+
