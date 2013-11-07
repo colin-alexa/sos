@@ -3,79 +3,114 @@ class Vector
 {
 
   public:
+/////////
+// ITERATORS
+/////////
     class const_iterator
-    {
+    { 
+      private:
+ 	   Object ** objects;
+	   int current;
+ 	   Vector<Object> * owner;
+
       public:
-        const_iterator( ) : current( 0 )
-          { }
+        const_iterator():current( 0 ), owner( 0 ), objects( 0 )
+		  { }
+        const_iterator( Vector<Object> * V, Object ** iterable, int location = 0)
+          { objects = iterable;
+			owner = V;
+			current = location; }
     
         const Object & operator* ( ) const
           { return retrieve( ); }
             
         const_iterator & operator++ ( )
         {
+		  if ( owner->size() > current ){ 
+			current++;
             return *this;
+		  } else {
+			return *this;
+		  }
         }
     
         const_iterator operator++ ( int )
         {
+		  if ( owner->size() > current ) {
             const_iterator old = *this;
-            ++( *this );
+            current++;
             return old;
+		  } else {
+		    return *this;
+		  }
         }
     
         bool operator== ( const const_iterator & rhs ) const
-          { return current == rhs.current; }
+          { return (current == rhs.current) && (owner == rhs.owner); }
         bool operator!= ( const const_iterator & rhs ) const
-          { return !( *this == rhs ); }
+          { return ! operator==(rhs); }
     
-      protected:
-        Object *current;
-    
+      protected: 
         Object & retrieve( ) const
-          { return current; }
-    
-        const_iterator( Object *p ) : current( p )
-          { }
+          { return *(*objects + current); }
             
         friend class Vector<Object>;
     };
 
     class iterator : public const_iterator
     {
+      private:
+        Vector<Object> * owner;
+        Object ** objects;
+		int current;
+
       public:
-        iterator( )
+        iterator( ) : current(0), owner(0), objects(0)
           { }
-    
+	    iterator( Vector<Object> * V, Object ** iterable, int location = 0 ) :
+			 current( location ), owner( V ), objects(iterable) { }
+
         Object & operator* ( )
           { return retrieve( ); }
         const Object & operator* ( ) const
           { return const_iterator::operator*( ); }
-            
+        
+		bool operator==( Vector<Object>::iterator rhs )
+		  { return current == rhs.current && owner == rhs.owner; }
+		bool operator!=( Vector<Object>::iterator rhs )
+		  { return ! operator==(rhs); }
+    
         iterator & operator++ ( )
         {
-            
+		  if (owner->size() > current) {
+            current++;
             return *this;
+		  } else {
+			return *this;
+		  }
         }
     
         iterator operator++ ( int )
         {
+		  if (owner->size() > current) {
             iterator old = *this;
-            ++( *this );
+            current++;
             return old;
+		  } else {
+			return *this;
+		  }
         }
     
-      protected:
-        Object * current;
-
-        iterator(Object *p ) : const_iterator( p )
-          { }
-    
+      protected:    
         Object & retrieve( )
-          { return current; }
+          { return *(*objects + current); }
 
         friend class Vector<Object>;
     };
+
+////////////
+// END ITERATORS
+////////////
 
   public:
     explicit Vector( int initSize = 0 )
@@ -148,17 +183,14 @@ class Vector
     const Object & back ( ) const
       { return objects[ theSize - 1 ]; }
 
-    typedef Object * iterator;
-    typedef const Object * const_iterator;
-
     iterator begin( )
-      { return &objects[ 0 ]; }
+      { return iterator(this, &objects, SPARE_CAPACITY); }
     const_iterator begin( ) const
-      { return &objects[ 0 ]; }
+      { return const_iterator(this, &objects, SPARE_CAPACITY); }
     iterator end( )
-      { return &objects[ size( ) ]; }
+      { return iterator(this, &objects, theSize); }
     const_iterator end( ) const
-      { return &objects[ size( ) ]; }
+      { return const_iterator(this, &objects, theSize); }
 
     enum { SPARE_CAPACITY = 16 };
 

@@ -5,13 +5,12 @@ using namespace std;
 
 int main(){
  Vector<int> a (10);
- for (int i = 0; i < 10; i++){
-  a.push_back(i);
- }
  Vector<int>::iterator b = a.begin();
- for (int i = 0; i < 10; i++){
-  cout << *b << endl;
-  b += 1;
+ for (int i = 0; i < 100; i++, b++){
+  a.push_back(i);
+  if (!(i % 5)){
+   cout << *b << endl;
+  }
  }
  return 0;
 }
