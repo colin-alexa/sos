@@ -1,0 +1,34 @@
+Doubly linked lists:
+
+void swap(node * one, node * two){
+ node* tmp;
+ one->prev->next = two;
+ two->next->prev = one;
+ tmp = one->prev;
+ one->prev = two;
+ two->prev = tmp;
+ tmp = two->next;
+ two->next = one;
+}
+
+singly linked list (generalized, not just adjacent elements):
+
+void swap(node * one, node * two)
+  {
+      List<Object>::iterator itr = begin();
+      node * ptone;
+      node * pttwo;
+      node * tmp;
+      for (int i = 0; i < theSize - 1; i++){
+          if (itr->next->next == one)
+            ptone = itr->next;
+          else if (itr->next->next == two)
+            pttwo = itr->next;
+          itr++;
+      }
+      ptone->next = two;
+      pttwo->next = one;
+      tmp = one->next;
+      one->next;
+      two->next;
+  }
