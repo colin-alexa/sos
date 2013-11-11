@@ -1,0 +1,7 @@
+3.9 Any operation that changes the underlying array in a Vector
+invalidates all of the iterators for that vector because the
+iterators are wrappers around a pointer to an object in the internal
+array representation of the vector. If the internal representation
+changes, there is no guarantee that the iterators for the pre-change
+representation will behave logically on the post-change array. Especially
+in cases where the change prompts and array resize.

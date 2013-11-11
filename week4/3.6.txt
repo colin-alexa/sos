@@ -1,0 +1,5 @@
+3.6
+        a.) see josephus.cpp
+        b.) O(n*m)
+        c.) if m = 1, running time is O(n). There is no measurable difference
+        in time between the program running with delete and without it.
